@@ -57,16 +57,16 @@ function watch(glob, options, cb) {
       return;
     }
 
-    if (typeof cb === 'function') {
-      running = true;
-      debouncedAsyncDone(cb, runComplete);
-    }
+    running = true;
+    debouncedAsyncDone(cb, runComplete);
   }
 
-  watcher
-    .on('change', onChange)
-    .on('unlink', onChange)
-    .on('add', onChange);
+  if (typeof cb === 'function') {
+    watcher
+      .on('change', onChange)
+      .on('unlink', onChange)
+      .on('add', onChange);
+  }
 
   return watcher;
 }
